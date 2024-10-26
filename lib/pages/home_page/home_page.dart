@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample_app/pages/home_page/home_page_controller.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final repositorys =
+        ref.watch(homePageProvider.select((s) => s.repositorys));
     return Scaffold(
       appBar: AppBar(
         title: Text("Music Search"),
@@ -14,9 +18,10 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-          itemCount: 10,
+          itemCount: repositorys.length,
           itemBuilder: (BuildContext context, int index) {
-           return _buildContainer();
+            final repository = repositorys[index];
+            return _buildContainer(name: repository.name);
           }),
     );
   }
@@ -53,10 +58,9 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildContainer() {
-    return Container(
-      height: 60,
-      child: Text("リポジトリ")
-    );
+  Widget _buildContainer({
+    required String name,
+  }) {
+    return Container(height: 60, child: Text(name));
   }
 }
