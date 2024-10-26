@@ -9,6 +9,8 @@ part 'home_page_controller.freezed.dart';
 class HomePagePageState with _$HomePagePageState {
   const factory HomePagePageState({
     @Default([]) List<Repository> repositorys,
+    @Default(false) bool loading,
+    @Default("") String  errorMessage,
   }) = _HomePagePageState;
 }
 
@@ -22,8 +24,28 @@ class HomePagePageController extends StateNotifier<HomePagePageState> {
 
   final service = GithubRepositoryService();
 
-  Future<void> searchRepository(String searchTerm) async {
-    final repositorys = await service.searchRepository(searchTerm);
-    state = state.copyWith(repositorys: repositorys);
+   Future<void> searchRepository(String searchTerm) async {
+    state = state.copyWith(loading: true, errorMessage: ""); // Reset loading and errorMessage
+
+    try {
+      final repositorys = await service.searchRepository(searchTerm);
+      if (repositorys.isEmpty) {
+        state = state.copyWith(
+          repositorys: repositorys,
+          loading: false,
+          errorMessage: "Not found",
+        );
+      } else {
+        state = state.copyWith(
+          repositorys: repositorys,
+          loading: false,
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        loading: false,
+        errorMessage: "Error: ${e.toString()}",
+      );
+    }
   }
 }

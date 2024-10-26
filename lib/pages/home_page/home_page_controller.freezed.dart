@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomePagePageState {
   List<Repository> get repositorys => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
 
   /// Create a copy of HomePagePageState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +33,7 @@ abstract class $HomePagePageStateCopyWith<$Res> {
           HomePagePageState value, $Res Function(HomePagePageState) then) =
       _$HomePagePageStateCopyWithImpl<$Res, HomePagePageState>;
   @useResult
-  $Res call({List<Repository> repositorys});
+  $Res call({List<Repository> repositorys, bool loading, String errorMessage});
 }
 
 /// @nodoc
@@ -50,12 +52,22 @@ class _$HomePagePageStateCopyWithImpl<$Res, $Val extends HomePagePageState>
   @override
   $Res call({
     Object? repositorys = null,
+    Object? loading = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       repositorys: null == repositorys
           ? _value.repositorys
           : repositorys // ignore: cast_nullable_to_non_nullable
               as List<Repository>,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -68,7 +80,7 @@ abstract class _$$HomePagePageStateImplCopyWith<$Res>
       __$$HomePagePageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Repository> repositorys});
+  $Res call({List<Repository> repositorys, bool loading, String errorMessage});
 }
 
 /// @nodoc
@@ -85,12 +97,22 @@ class __$$HomePagePageStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? repositorys = null,
+    Object? loading = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$HomePagePageStateImpl(
       repositorys: null == repositorys
           ? _value._repositorys
           : repositorys // ignore: cast_nullable_to_non_nullable
               as List<Repository>,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -98,7 +120,10 @@ class __$$HomePagePageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomePagePageStateImpl implements _HomePagePageState {
-  const _$HomePagePageStateImpl({final List<Repository> repositorys = const []})
+  const _$HomePagePageStateImpl(
+      {final List<Repository> repositorys = const [],
+      this.loading = false,
+      this.errorMessage = ""})
       : _repositorys = repositorys;
 
   final List<Repository> _repositorys;
@@ -111,8 +136,15 @@ class _$HomePagePageStateImpl implements _HomePagePageState {
   }
 
   @override
+  @JsonKey()
+  final bool loading;
+  @override
+  @JsonKey()
+  final String errorMessage;
+
+  @override
   String toString() {
-    return 'HomePagePageState(repositorys: $repositorys)';
+    return 'HomePagePageState(repositorys: $repositorys, loading: $loading, errorMessage: $errorMessage)';
   }
 
   @override
@@ -121,12 +153,15 @@ class _$HomePagePageStateImpl implements _HomePagePageState {
         (other.runtimeType == runtimeType &&
             other is _$HomePagePageStateImpl &&
             const DeepCollectionEquality()
-                .equals(other._repositorys, _repositorys));
+                .equals(other._repositorys, _repositorys) &&
+            (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_repositorys));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_repositorys), loading, errorMessage);
 
   /// Create a copy of HomePagePageState
   /// with the given fields replaced by the non-null parameter values.
@@ -139,11 +174,17 @@ class _$HomePagePageStateImpl implements _HomePagePageState {
 }
 
 abstract class _HomePagePageState implements HomePagePageState {
-  const factory _HomePagePageState({final List<Repository> repositorys}) =
-      _$HomePagePageStateImpl;
+  const factory _HomePagePageState(
+      {final List<Repository> repositorys,
+      final bool loading,
+      final String errorMessage}) = _$HomePagePageStateImpl;
 
   @override
   List<Repository> get repositorys;
+  @override
+  bool get loading;
+  @override
+  String get errorMessage;
 
   /// Create a copy of HomePagePageState
   /// with the given fields replaced by the non-null parameter values.
