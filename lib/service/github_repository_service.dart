@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:sample_app/model/repository.dart';
 
 class GithubRepositoryService {
   final String _baseUrl = 'https://api.github.com/search/repositories';
@@ -12,14 +13,11 @@ class GithubRepositoryService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
-        final List<dynamic> repositories = data['items'];
+        final List<dynamic> items = data['items'];
 
-        // Process the repository data as needed
-        for (var repo in repositories) {
-          print('Repository Name: ${repo['name']}');
-          print('Stars: ${repo['stargazers_count']}');
-          print('URL: ${repo['html_url']}');
-        }
+        final repositorys = items.map((e) => Repository.fromJson(e)).toList();
+
+        print(repositorys);
       } else {
         throw Exception('Failed to load repositories: ${response.statusCode}');
       }
