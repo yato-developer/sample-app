@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample_app/model/repository.dart';
 import 'package:sample_app/pages/home_page/home_page_controller.dart';
+import 'package:sample_app/pages/repository_detail_page/repository_detail_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -93,14 +94,26 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Widget _buildContainer({required Repository repository}) {
-    return Container(
-      height: 60,
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          const SizedBox(width: 10),
-          Text(repository.name),
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RepositoryDetailPage(
+              repository: repository,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        height: 60,
+        width: double.infinity,
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            const SizedBox(width: 10),
+            Text(repository.name),
+          ],
+        ),
       ),
     );
   }
